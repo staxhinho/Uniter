@@ -141,7 +141,7 @@ pub fn temperature() {
 }
 
 fn aftermenu() {
-    let options = vec!["Continue", "Exit"];
+    let options = vec!["Continue", "Back", "Exit"];
 
     let answer = Select::new("", options)
         .prompt();
@@ -149,6 +149,7 @@ fn aftermenu() {
     match answer {
         Ok(choice) => match choice {
             "Continue" => temperature(),
+            "Back" => crate::main_select(),
             "Exit" => std::process::exit(0),
             _ => {
                 println!("Unknown option selected.");
