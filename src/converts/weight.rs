@@ -186,27 +186,23 @@ fn out_metric() {
         }
     };
 
-    let mut out_weight: f64 = 0.0;
-
     if w_option == "t" {
-        unsafe { out_weight = MID_WEIGHT / 1000000.0 };
-        println!("Output weight: {}", out_weight);
+        unsafe { println!("Output weight: {}", MID_WEIGHT / 1000000.0) };
         aftermenu();
     } else if w_option == "kg" {
-        unsafe { out_weight = MID_WEIGHT / 1000.0 };
-        println!("Output weight: {}", out_weight);
+        unsafe { println!("Output weight: {}", MID_WEIGHT / 1000.0) };
         aftermenu();
     } else if w_option == "g" {
-        unsafe { out_weight = MID_WEIGHT };
-        println!("Output weight: {}", out_weight);
+        unsafe {
+            let mid_weight = MID_WEIGHT;
+            println!("Output weight: {}", mid_weight);
+        }
         aftermenu();
     } else if w_option == "mg" {
-        unsafe { out_weight = MID_WEIGHT * 1000.0 };
-        println!("Output weight: {}", out_weight);
+        unsafe { println!("Output weight: {}",MID_WEIGHT * 1000.0) };
         aftermenu();
     } else if w_option == "μg" {
-        unsafe { out_weight = MID_WEIGHT * 1000000.0 };
-        println!("Output weight: {}", out_weight);
+        unsafe { println!("Output weight: {}", MID_WEIGHT * 1000000.0) };
         aftermenu();
     } 
 }
@@ -240,23 +236,17 @@ fn out_imperial() {
         }
     };
 
-    let mut out_weight: f64 = 0.0;
-
     if w_option == "lt" {
-        unsafe { out_weight = MID_WEIGHT / 1016046.9088 };
-        println!("Output weight: {}", out_weight);
+        unsafe {println!("Output weight: {}", MID_WEIGHT / 1016046.9088) };
         aftermenu();
     } else if w_option == "sht" {
-        unsafe { out_weight = MID_WEIGHT / 907184.74 };
-        println!("Output weight: {}", out_weight);
+        unsafe { println!("Output weight: {}", MID_WEIGHT / 907184.74) };
         aftermenu();
     } else if w_option == "lb" {
-        unsafe { out_weight = MID_WEIGHT / 453.59237 };
-        println!("Output weight: {}", out_weight);
+        unsafe { println!("Output weight: {}", MID_WEIGHT / 453.59237) };
         aftermenu();
     } else if w_option == "oz" {
-        unsafe { out_weight = MID_WEIGHT / 28.349523125 };
-        println!("Output weight: {}", out_weight);
+        unsafe { println!("Output weight: {}", MID_WEIGHT / 28.349523125) };
         aftermenu();
     }
 }
