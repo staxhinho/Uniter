@@ -62,13 +62,11 @@ pub fn temperature() {
 
         if out_temp_opt == "f" {
             let out_temp = (in_temp_val * 9.0 / 5.0) + 32.0;
-            let formatted = format!("{:.10}", out_temp).trim_end_matches('0').trim_end_matches('.').to_string();
-            println!("Output temperature: {:.2} °F", formatted);
+            println!("Output temperature: {} °F", out_temp);
             aftermenu();
         } else if out_temp_opt == "k" {
             let out_temp = in_temp_val + 273.15;
-            let formatted = format!("{:.10}", out_temp).trim_end_matches('0').trim_end_matches('.').to_string();
-            println!("Output temperature: {:.2} °K", formatted);
+            println!("Output temperature: {} °K", out_temp);
             aftermenu();
         }
 
@@ -94,13 +92,11 @@ pub fn temperature() {
 
         if out_temp_opt == "c" {
             let out_temp = (in_temp_val - 32.0) * 5.0 / 9.0;
-            let formatted = format!("{:.10}", out_temp).trim_end_matches('0').trim_end_matches('.').to_string();
-            println!("Output temperature: {:.2} °C", formatted);
+            println!("Output temperature: {} °C", out_temp);
             aftermenu();
         } else if out_temp_opt == "k" {
             let out_temp = ((in_temp_val - 32.0) * 5.0 / 9.0) + 273.15;
-            let formatted = format!("{:.10}", out_temp).trim_end_matches('0').trim_end_matches('.').to_string();
-            println!("Output temperature: {:.2} °K", formatted);
+            println!("Output temperature: {} °K", out_temp);
             aftermenu();
         }
 
@@ -127,13 +123,11 @@ pub fn temperature() {
 
         if out_temp_opt == "c" {
             let out_temp = in_temp_val - 273.15;
-            let formatted = format!("{:.10}", out_temp).trim_end_matches('0').trim_end_matches('.').to_string();
-            println!("Output temperature: {:.2} °C", formatted);
+            println!("Output temperature: {} °C", out_temp);
             aftermenu();
         } else if out_temp_opt == "f" {
             let out_temp = ((in_temp_val - 273.15) * 9.0 / 5.0) + 32.0;
-            let formatted = format!("{:.10}", out_temp).trim_end_matches('0').trim_end_matches('.').to_string();
-            println!("Output temperature: {} °F", formatted);
+            println!("Output temperature: {} °F", out_temp);
             aftermenu();
         }
     }
