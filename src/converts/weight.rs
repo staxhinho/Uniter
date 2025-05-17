@@ -262,7 +262,7 @@ fn out_imperial() {
 }
 
 fn aftermenu() {
-    let options = vec!["Continue", "Exit"];
+    let options = vec!["Continue", "Back", "Exit"];
 
     let answer = Select::new("", options)
         .prompt();
@@ -270,6 +270,7 @@ fn aftermenu() {
     match answer {
         Ok(choice) => match choice {
             "Continue" => weight(),
+            "Back" => crate::main_select(),
             "Exit" => std::process::exit(0),
             _ => {
                 println!("Unknown option selected.");

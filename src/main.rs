@@ -1,11 +1,14 @@
-//use std::io;
 use inquire::Select;
 mod converts;
 
 fn main() {
     println!("Uniter -- The best unit converter!");
 
-    let options = vec!["Temperature", "Weight", "Length"];
+    main_select();
+}
+
+pub fn main_select() {
+        let options = vec!["Temperature", "Weight", "Length", "Exit"];
 
     let answer = Select::new("Choose an option:", options)
         .prompt();
@@ -15,9 +18,9 @@ fn main() {
             "Temperature" => converts::temperature(),
             "Weight" => converts::weight(),
             "Length" => println!("Length conversion not implemented yet."),
+            "Exit" => std::process::exit(0),
             _ => println!("Unknown option selected."),
         },
         Err(err) => println!("There was an error: {}", err),
     }
 }
-
