@@ -13,10 +13,11 @@ fn main() {
     match answer {
         Ok(choice) => match choice {
             "Temperature" => converts::temperature(),
-            "Weight" => println!("Weight conversion not implemented yet."),
+            "Weight" => converts::weight(),
             "Length" => println!("Length conversion not implemented yet."),
-            _ => println!("Unknown option selected."), // wildcard arm
+            _ => println!("Unknown option selected."),
         },
         Err(err) => println!("There was an error: {}", err),
     }
 }
+
