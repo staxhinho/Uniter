@@ -17,7 +17,7 @@ pub fn main_select() {
         Ok(choice) => match choice {
             "Temperature" => converts::temperature(),
             "Weight" => converts::weight(),
-            "Length" => println!("Length conversion not implemented yet."),
+            "Length" => converts::length(),
             "Exit" => std::process::exit(0),
             _ => println!("Unknown option selected."),
         },
