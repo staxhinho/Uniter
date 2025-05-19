@@ -9,7 +9,7 @@ fn main() {
 }
 
 pub fn main_select() {
-        let options = vec!["Temperature", "Weight", "Length", "Exit"];
+        let options = vec!["Temperature", "Weight", "Length", "Money", "Exit"];
 
     let answer = Select::new("Choose an option:", options)
         .prompt();
@@ -19,6 +19,7 @@ pub fn main_select() {
             "Temperature" => converts::temperature(),
             "Weight" => converts::weight(),
             "Length" => converts::length(),
+            "Money" => converts::money(),
             "Exit" => std::process::exit(0),
             _ => println!("Unknown option selected."),
         },
