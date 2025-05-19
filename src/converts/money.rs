@@ -42,5 +42,30 @@ fn request(url: String) -> Result<(), reqwest::Error> {
         println!("No rates found.");
     }
 
+    aftermenu();
+
     Ok(())
+}
+
+fn aftermenu() {
+    let options = vec!["Continue", "Back", "Exit"];
+
+    let answer = inquire::Select::new("", options)
+        .prompt();
+    
+    match answer {
+        Ok(choice) => match choice {
+            "Continue" => money(),
+            "Back" => crate::main_select(),
+            "Exit" => std::process::exit(0),
+            _ => {
+                println!("Unknown option selected.");
+                return;
+            },
+        },
+        Err(err) => {
+            println!("There was an error: {}", err);
+            return;
+        }
+    }
 }
