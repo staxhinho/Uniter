@@ -9,6 +9,7 @@ Available Types
 <li>Temperature(Celsius, Fahrenheit, Kelvin)</li>
 <li>Weight(Metric, Imperial)</li>
 <li>Lenght(Metric, Imperial, Space)</li>
+<li>Money(All currencies under FXRatesAPI, also you don't need any API keys)</li>
 </ul>
 
 <details>
