@@ -260,7 +260,7 @@ fn aftermenu() {
     match answer {
         Ok(choice) => match choice {
             "Continue" => weight(),
-            "Back" => crate::main_select(),
+            "Back" => crate::convert_select(),
             "Exit" => std::process::exit(0),
             _ => {
                 println!("Unknown option selected.");

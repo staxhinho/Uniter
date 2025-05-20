@@ -1,15 +1,17 @@
 #![allow(unused_assignments)]
 use inquire::Select;
 mod converts;
+mod cli;
 
 fn main() {
     println!("Uniter -- The best unit converter!");
 
-    main_select();
+    cli::cli();
+    convert_select();
 }
 
-pub fn main_select() {
-        let options = vec!["Temperature", "Weight", "Length", "Money", "Exit"];
+pub fn convert_select() {
+    let options = vec!["Temperature", "Weight", "Length", "Money", "Exit"];
 
     let answer = Select::new("Choose an option:", options)
         .prompt();
