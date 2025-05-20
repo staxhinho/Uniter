@@ -7,6 +7,7 @@ pub use weight::weight;
 
 pub mod length;
 pub use length::length;
+pub use length::length_logic;
 
 pub mod money;
 pub use money::money;

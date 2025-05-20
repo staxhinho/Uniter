@@ -43,5 +43,8 @@ pub fn cli() {
     if convert == "t" {
         let output = converts::temperature_logic(input, input_type, output_type);
         println!("{}°{}", output, output_type.to_ascii_uppercase());
+    } else if convert == "l" {
+        let output = converts::length_logic(input, input_type, output_type);
+        println!("{}{}", output, output_type.to_ascii_lowercase());
     }
 }

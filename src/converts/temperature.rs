@@ -5,24 +5,24 @@ pub fn temperature() {
     dialog();
 }
 
-pub fn logic(input: f64, input_type: &str, output_type: &str) -> f64 {
+pub fn temperature_logic(input: f64, input_type: &str, output_type: &str) -> f64 {
     let mut mid_temp: f64 = 0.0; // Mid temp is an intermediary variable to make conversion easier and it is based on celsius.
 
-    if input_type == "c" || input_type == "C" {
+    if input_type == "c" {
         mid_temp = input;
-    } else if input_type == "f" || input_type == "F" {
+    } else if input_type == "f" {
         mid_temp = (input - 32.0) * 5.0 / 9.0;
-    } else if input_type  == "k" || input_type == "K" {
+    } else if input_type  == "k" {
         mid_temp = input - 273.15;
     }
 
     let mut output: f64 = 0.0;
 
-    if output_type == "c" || output_type == "C" {
+    if output_type == "c" {
         output = mid_temp;
-    } else if output_type == "f" || output_type == "F" {
+    } else if output_type == "f" {
         output = (mid_temp * 9.0 / 5.0) + 32.0;
-    } else if output_type == "k" || output_type == "K" {
+    } else if output_type == "k" {
         output = mid_temp + 273.15;
     }
 
@@ -33,9 +33,9 @@ fn dialog() {
     fn select_unit(prompt_text: &str) -> Option<&'static str> {
         let options = vec!["Celsius", "Fahrenheit", "Kelvin"];
         Select::new(prompt_text, options).prompt().ok().and_then(|choice| match choice {
-            "Celsius" => Some("C"),
-            "Fahrenheit" => Some("F"),
-            "Kelvin" => Some("K"),
+            "Celsius" => Some("c"),
+            "Fahrenheit" => Some("f"),
+            "Kelvin" => Some("k"),
             _ => {
                 println!("Unknown option selected.");
                 None
@@ -68,7 +68,7 @@ fn dialog() {
         None => return,
     };
 
-    let output = logic(input, input_type, output_type);
-    println!("Output temperature: {} °{}", output, output_type);
+    let output = temperature_logic(input, input_type, output_type);
+    println!("Output temperature: {}°{}", output, output_type.to_ascii_uppercase());
     crate::converts::aftermenu(temperature);
 }
