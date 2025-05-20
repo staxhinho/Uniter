@@ -46,5 +46,7 @@ pub fn cli() {
     } else if convert == "l" {
         let output = converts::length_logic(input, input_type, output_type);
         println!("{}{}", output, output_type.to_ascii_lowercase());
+    } else if convert == "m" {
+        converts::money_logic(input, input_type, output_type);
     }
 }

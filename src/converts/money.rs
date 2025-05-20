@@ -8,6 +8,19 @@ struct ApiResponse {
 }
 
 pub fn money() {
+    dialog();
+}
+
+pub fn money_logic(input: f64, input_type: &str, output_type: &str) {
+    let input_string = input.to_string();
+    let input_str: &str = &input_string;
+
+    let url: String = "https://api.fxratesapi.com/latest?currencies=".to_owned() + &output_type.to_ascii_uppercase().trim() + "&base=" + &input_type.to_ascii_uppercase().trim() + "&places=2" + "&amount=" + &input_str.trim();
+
+    let _ = request(url);
+}
+
+fn dialog() {
     let mut in_iso = String::new();
     println!("Type input ISO(3/4 letter abreviation):");
     io::stdin().read_line(&mut in_iso).expect("Failed to read line");
@@ -17,18 +30,16 @@ pub fn money() {
     println!("Type input quantity:");
     io::stdin().read_line(&mut in_amount).expect("Failed to read line");
 
-    let mut places = String::new();
-    println!("Type input decimal places(1-15):");
-    io::stdin().read_line(&mut places).expect("Failed to read line");
-
     let mut out_iso = String::new();
     println!("Type output ISO(3/4 letter abreviation):");
     io::stdin().read_line(&mut out_iso).expect("Failed to read line");
     out_iso.make_ascii_uppercase();
 
-    let url: String = "https://api.fxratesapi.com/latest?currencies=".to_owned() + &out_iso.trim() + "&base=" + &in_iso.trim() + "&places=" + &places.trim() + "&amount=" + &in_amount.trim();
+    let url: String = "https://api.fxratesapi.com/latest?currencies=".to_owned() + &out_iso.trim() + "&base=" + &in_iso.trim() + "&places=2" + "&amount=" + &in_amount.trim();
 
     let _ = request(url);
+
+    crate::converts::aftermenu(money);
 }
 
 fn request(url: String) -> Result<(), reqwest::Error> {
@@ -42,30 +53,5 @@ fn request(url: String) -> Result<(), reqwest::Error> {
         println!("No rates found.");
     }
 
-    aftermenu();
-
     Ok(())
-}
-
-fn aftermenu() {
-    let options = vec!["Continue", "Back", "Exit"];
-
-    let answer = inquire::Select::new("", options)
-        .prompt();
-    
-    match answer {
-        Ok(choice) => match choice {
-            "Continue" => money(),
-            "Back" => crate::convert_select(),
-            "Exit" => std::process::exit(0),
-            _ => {
-                println!("Unknown option selected.");
-                return;
-            },
-        },
-        Err(err) => {
-            println!("There was an error: {}", err);
-            return;
-        }
-    }
 }
