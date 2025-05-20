@@ -1,10 +1,9 @@
 use std::io;
 use inquire::Select;
 
-static mut MID_LENGHT: f64 = 0.0; // Mid temp is an intermediary variable to make conversion easier and it is based on the meter.
-
 pub fn length() {
-    let options = vec!["Metric", "Imperial", "Space"];
+    dialog();
+    /* let options = vec!["Metric", "Imperial", "Space"];
     let answer = Select::new("Input system:", options)
         .prompt();
 
@@ -16,10 +15,10 @@ pub fn length() {
             _ => {}
         },
         Err(err) => println!("There was an error: {}", err),
-    };
+    }; */
 }
 
-fn in_metric() {
+/* fn in_metric() {
     let options = vec!["Kilometer(km)", "Meter(m)", "Decimeter(dm)", "Centimeter(cm)", "Milimeter(mm)", "Micrometer(μm)", "Nanometer(hm)", "Back"];
     let answer = Select::new("Select option:", options)
         .prompt();
@@ -320,4 +319,18 @@ fn aftermenu() {
             return;
         }
     }
+} */
+
+pub fn length_logic(input: f64, input_type: &str, output_type: &str) -> f64 {
+    static mut mid_length: f64 = 0.0; // Mid length is an intermediary variable to make conversion easier and it is based on the meter.
+
+    //if 
+
+    let mut output: f64 = 0.0;
+
+    output
+}
+
+fn dialog() {
+
 }

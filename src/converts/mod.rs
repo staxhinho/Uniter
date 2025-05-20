@@ -1,6 +1,6 @@
 pub mod temperature;
 pub use temperature::temperature;
-pub use temperature::logic;
+pub use temperature::temperature_logic;
 
 pub mod weight;
 pub use weight::weight;

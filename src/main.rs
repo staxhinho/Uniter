@@ -1,4 +1,3 @@
-#![allow(unused_assignments)]
 use inquire::Select;
 mod converts;
 mod cli;

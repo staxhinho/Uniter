@@ -41,7 +41,7 @@ pub fn cli() {
     let input_type = &caps[2];
 
     if convert == "t" {
-        let output = converts::logic(input, input_type, output_type);
+        let output = converts::temperature_logic(input, input_type, output_type);
         println!("{}°{}", output, output_type.to_ascii_uppercase());
     }
 }
