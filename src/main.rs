@@ -6,12 +6,22 @@ mod cli;
 fn main() {
     println!("Uniter -- The best unit converter!");
 
-    cli::cli();
-    convert_select();
+    let answer = Select::new("Choose an option:", vec!["CLI", "Interface","Exit"])
+        .prompt();
+
+    match answer {
+        Ok(choice) => match choice {
+            "CLI" => cli::cli(),
+            "Interface" => convert_select(),
+            "Exit" => std::process::exit(0),
+            _ => println!("Unknown option selected."),
+        },
+        Err(err) => println!("There was an error: {}", err),
+    }
 }
 
 pub fn convert_select() {
-    let options = vec!["Temperature", "Weight", "Length", "Money", "Exit"];
+    let options = vec!["Temperature", "Weight", "Length", "Money", "Back", "Exit"];
 
     let answer = Select::new("Choose an option:", options)
         .prompt();
@@ -22,6 +32,7 @@ pub fn convert_select() {
             "Weight" => converts::weight(),
             "Length" => converts::length(),
             "Money" => converts::money(),
+            "Back" => main(),
             "Exit" => std::process::exit(0),
             _ => println!("Unknown option selected."),
         },
