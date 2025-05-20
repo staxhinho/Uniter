@@ -1,4 +1,6 @@
 use std::{io};
+use regex::Regex;
+use crate::converts;
 
 pub fn cli() {
     println!("Using uniter cli");
@@ -15,31 +17,31 @@ pub fn cli() {
     }
 
     let convert = parts[0];
+    let input_with_unit = parts[1];
+    let output_type = parts[2];
 
-    let mut number_part = String::new();
-    let mut unit_part = String::new();
+    let re = Regex::new(r"^([0-9]*\.?[0-9]+)([a-zA-Z\./]+)$").unwrap();
 
-    for c in parts[1].chars() {
-        if c.is_digit(10) || c == '.' {
-            number_part.push(c);
-        } else {
-            unit_part.push(c);
-        }
-    }
-
-    let input: f64 = match number_part.parse() {
-        Ok(num) => num,
-        Err(_) => {
-            eprintln!("Invalid number: {}", number_part);
+    let caps = match re.captures(input_with_unit) {
+        Some(c) => c,
+        None => {
+            eprintln!("Invalid input format: {}", input_with_unit);
             return;
         }
     };
 
-    let input_type = unit_part;
-    let output_type = parts[2];
+    let input: f64 = match caps[1].parse() {
+        Ok(num) => num,
+        Err(_) => {
+            eprintln!("Invalid number: {}", &caps[1]);
+            return;
+        }
+    };
 
-    println!("convert = {}", convert);
-    println!("input = {}", input);
-    println!("input_type = {}", input_type);
-    println!("output_type = {}", output_type);
+    let input_type = &caps[2];
+
+    if convert == "t" {
+        let output = converts::logic(input, input_type, output_type);
+        println!("{}°{}", output, output_type.to_ascii_uppercase());
+    }
 }

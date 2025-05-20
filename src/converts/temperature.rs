@@ -2,36 +2,60 @@ use std::io;
 use inquire::Select;
 
 pub fn temperature() {
-    let options = vec!["Celsius", "Fahrenheit", "Kelvin"];
+    dialog();
+}
 
-    let answer = Select::new("Input temperature:", options)
-        .prompt();
+pub fn logic(input: f64, input_type: &str, output_type: &str) -> f64 {
+    let mut mid_temp: f64 = 0.0; // Mid temp is an intermediary variable to make conversion easier and it is based on celsius.
 
-    let in_temp_opt = match answer {
-        Ok(choice) => match choice {
-            "Celsius" => "c".to_string(),
-            "Fahrenheit" => "f".to_string(),
-            "Kelvin" => "k".to_string(),
+    if input_type == "c" || input_type == "C" {
+        mid_temp = input;
+    } else if input_type == "f" || input_type == "F" {
+        mid_temp = (input - 32.0) * 5.0 / 9.0;
+    } else if input_type  == "k" || input_type == "K" {
+        mid_temp = input - 273.15;
+    }
+
+    let mut output: f64 = 0.0;
+
+    if output_type == "c" || output_type == "C" {
+        output = mid_temp;
+    } else if output_type == "f" || output_type == "F" {
+        output = (mid_temp * 9.0 / 5.0) + 32.0;
+    } else if output_type == "k" || output_type == "K" {
+        output = mid_temp + 273.15;
+    }
+
+    output
+}
+
+fn dialog() {
+    fn select_unit(prompt_text: &str) -> Option<&'static str> {
+        let options = vec!["Celsius", "Fahrenheit", "Kelvin"];
+        Select::new(prompt_text, options).prompt().ok().and_then(|choice| match choice {
+            "Celsius" => Some("C"),
+            "Fahrenheit" => Some("F"),
+            "Kelvin" => Some("K"),
             _ => {
                 println!("Unknown option selected.");
-                return;
-            },
-        },
-        Err(err) => {
-            println!("There was an error: {}", err);
-            return;
-        }
+                None
+            }
+        })
+    }
+
+    let input_type = match select_unit("Input temperature:") {
+        Some(unit) => unit,
+        None => return,
     };
 
     println!("Enter the temperature value:");
     let mut in_temp_str = String::new();
+    if io::stdin().read_line(&mut in_temp_str).is_err() {
+        println!("Failed to read line");
+        return;
+    }
 
-    io::stdin()
-        .read_line(&mut in_temp_str)
-        .expect("Failed to read line");
-
-    let in_temp_str = in_temp_str.trim(); // remove newline
-    let in_temp_val: f64 = match in_temp_str.parse() {
+    let input: f64 = match in_temp_str.trim().parse() {
         Ok(num) => num,
         Err(_) => {
             println!("Please enter a valid number.");
@@ -39,120 +63,12 @@ pub fn temperature() {
         }
     };
 
-    if in_temp_opt == "c" {
+    let output_type = match select_unit("Output temperature:") {
+        Some(unit) => unit,
+        None => return,
+    };
 
-        let out_options = vec!["Fahrenheit", "Kelvin"];
-        let out_answer = Select::new("Output temperature:", out_options)
-            .prompt();
-
-        let out_temp_opt = match out_answer {
-            Ok(choice) => match choice {
-                "Fahrenheit" => "f".to_string(),
-                "Kelvin" => "k".to_string(),
-                _ => {
-                    println!("Unknown option selected.");
-                    return;
-                },
-            },
-            Err(err) => {
-                println!("There was an error: {}", err);
-                return;
-            }
-        };
-
-        if out_temp_opt == "f" {
-            let out_temp = (in_temp_val * 9.0 / 5.0) + 32.0;
-            println!("Output temperature: {} °F", out_temp);
-            aftermenu();
-        } else if out_temp_opt == "k" {
-            let out_temp = in_temp_val + 273.15;
-            println!("Output temperature: {} °K", out_temp);
-            aftermenu();
-        }
-
-    } else if in_temp_opt == "f" {
-        let out_options = vec!["Celsius", "Kelvin"];
-        let out_answer = Select::new("Output temperature:", out_options)
-            .prompt();
-
-        let out_temp_opt = match out_answer {
-            Ok(choice) => match choice {
-                "Celsius" => "c".to_string(),
-                "Kelvin" => "k".to_string(),
-                _ => {
-                    println!("Unknown option selected.");
-                    return;
-                },
-            },
-            Err(err) => {
-                println!("There was an error: {}", err);
-                return;
-            }
-        };
-
-        if out_temp_opt == "c" {
-            let out_temp = (in_temp_val - 32.0) * 5.0 / 9.0;
-            println!("Output temperature: {} °C", out_temp);
-            aftermenu();
-        } else if out_temp_opt == "k" {
-            let out_temp = ((in_temp_val - 32.0) * 5.0 / 9.0) + 273.15;
-            println!("Output temperature: {} °K", out_temp);
-            aftermenu();
-        }
-
-    } else if in_temp_opt == "k" {
-
-        let out_options = vec!["Celsius", "Fahrenheit"];
-        let out_answer = Select::new("Output temperature:", out_options)
-            .prompt();
-
-        let out_temp_opt = match out_answer {
-            Ok(choice) => match choice {
-                "Celsius" => "c".to_string(),
-                "Fahrenheit" => "f".to_string(),
-                _ => {
-                    println!("Unknown option selected.");
-                    return;
-                },
-            },
-            Err(err) => {
-                println!("There was an error: {}", err);
-                return;
-            }
-        };
-
-        if out_temp_opt == "c" {
-            let out_temp = in_temp_val - 273.15;
-            println!("Output temperature: {} °C", out_temp);
-            aftermenu();
-        } else if out_temp_opt == "f" {
-            let out_temp = ((in_temp_val - 273.15) * 9.0 / 5.0) + 32.0;
-            println!("Output temperature: {} °F", out_temp);
-            aftermenu();
-        }
-    }
-
-}
-
-fn aftermenu() {
-    let options = vec!["Continue", "Back", "Exit"];
-
-    let answer = Select::new("", options)
-        .prompt();
-    
-    match answer {
-        Ok(choice) => match choice {
-            "Continue" => temperature(),
-            "Back" => crate::convert_select(),
-            "Exit" => std::process::exit(0),
-            _ => {
-                println!("Unknown option selected.");
-                return;
-            },
-        },
-        Err(err) => {
-            println!("There was an error: {}", err);
-            return;
-        }
-    }
+    let output = logic(input, input_type, output_type);
+    println!("Output temperature: {} °{}", output, output_type);
+    crate::converts::aftermenu(temperature);
 }
