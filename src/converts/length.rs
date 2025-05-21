@@ -109,7 +109,7 @@ fn dialog() {
         None => return,
     };
 
-    println!("Enter the temperature value:");
+    println!("Enter the length value:");
     let mut in_temp_str = String::new();
     if io::stdin().read_line(&mut in_temp_str).is_err() {
         println!("Failed to read line");

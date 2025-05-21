@@ -48,5 +48,8 @@ pub fn cli() {
         println!("{}{}", output, output_type.to_ascii_lowercase());
     } else if convert == "m" {
         converts::money_logic(input, input_type, output_type);
+    } else if convert == "w" {
+        let output = converts::weight_logic(input, input_type, output_type);
+        println!("{}{}", output, output_type.to_ascii_lowercase());
     }
 }

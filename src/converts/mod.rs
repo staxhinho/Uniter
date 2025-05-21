@@ -4,6 +4,7 @@ pub use temperature::temperature_logic;
 
 pub mod weight;
 pub use weight::weight;
+pub use weight::weight_logic;
 
 pub mod length;
 pub use length::length;
