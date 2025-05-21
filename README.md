@@ -52,6 +52,7 @@ Output:
 14508.59JPY
 ```
 
+You also have back and exit options which are self-explanatory.
 </details>
 
 <details>
