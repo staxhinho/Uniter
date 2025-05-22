@@ -20,3 +20,7 @@ pub use aftermenu::aftermenu;
 pub mod time;
 pub use time::time;
 pub use time::time_logic;
+
+pub mod volume;
+pub use volume::volume;
+pub use volume::volume_logic;
