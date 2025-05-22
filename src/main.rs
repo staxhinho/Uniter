@@ -20,7 +20,7 @@ fn main() {
 }
 
 pub fn convert_select() {
-    let options = vec!["Temperature", "Weight", "Length", "Money", "Back", "Exit"];
+    let options = vec!["Temperature", "Weight", "Length", "Money", "Time", "Back", "Exit"];
 
     let answer = Select::new("Choose an option:", options)
         .prompt();
@@ -31,6 +31,7 @@ pub fn convert_select() {
             "Weight" => converts::weight(),
             "Length" => converts::length(),
             "Money" => converts::money(),
+            "Time" => converts::time(),
             "Back" => main(),
             "Exit" => std::process::exit(0),
             _ => println!("Unknown option selected."),

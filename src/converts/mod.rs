@@ -16,3 +16,7 @@ pub use money::money_logic;
 
 pub mod aftermenu;
 pub use aftermenu::aftermenu;
+
+pub mod time;
+pub use time::time;
+pub use time::time_logic;

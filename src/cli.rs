@@ -61,5 +61,9 @@ pub fn cli() {
         let output = converts::weight_logic(input, input_type, output_type);
         println!("{}{}", output, output_type.to_ascii_lowercase());
         cli();
+    } else if convert == "ti" {
+        let output = converts::time_logic(input, input_type, output_type);
+        println!("{}{}", output, output_type.to_ascii_lowercase());
+        cli();
     }
 }
