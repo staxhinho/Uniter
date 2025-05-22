@@ -10,6 +10,8 @@ Available Types
 <li>Weight(Metric, Imperial)</li>
 <li>Lenght(Metric, Imperial, Space)</li>
 <li>Money(All currencies under FXRatesAPI, also you don't need any API keys)</li>
+<li>Time</li>
+<li>Volume(Metric, Imperial, Solid, Liquid)</li>
 </ul>
 
 <details>
@@ -66,6 +68,7 @@ You also have back and exit options which are self-explanatory.
   <li> New - New feature.
   <li> Fix - Fixed or optimized a feature.
   <li> Feat - Changed something in a feature that is not fixing, like changing logic or adding new behaviour.
+  <li> Docs - Changing documentation.
 </ul>
 
 # Message examples
