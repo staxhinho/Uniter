@@ -6,7 +6,7 @@ pub fn length() {
 }
 
 
-pub fn length_logic(input: f64, input_type: &str, output_type: &str) -> f64 {
+pub fn length_logic(input: f64, input_type: &str, output_type: &str, decimals: i64) -> f64 {
     let mut mid_length: f64 = 0.0; // Mid length is an intermediary variable to make conversion easier and it is based on the meter.
 
     if input_type == "km" {
@@ -41,40 +41,42 @@ pub fn length_logic(input: f64, input_type: &str, output_type: &str) -> f64 {
         mid_length = input * 9460700000000000.0;
     }
 
-    let mut output: f64 = 0.0;
+    let mut output_raw: f64 = 0.0;
 
     if output_type == "km" {
-        output = mid_length / 1000.0;
+        output_raw = mid_length / 1000.0;
     } else if output_type == "m" {
-        output = mid_length;
+        output_raw = mid_length;
     } else if output_type == "dm" {
-        output = mid_length * 10.0;
+        output_raw = mid_length * 10.0;
     } else if output_type == "cm" {
-        output = mid_length * 100.0;
+        output_raw = mid_length * 100.0;
     } else if output_type == "mm" {
-        output = mid_length * 1000.0;
+        output_raw = mid_length * 1000.0;
     } else if output_type == "μm" {
-        output = mid_length * 1000000.0;
+        output_raw = mid_length * 1000000.0;
     } else if output_type == "hm" {
-        output = mid_length * 1000000000.0;
+        output_raw = mid_length * 1000000000.0;
     } else if output_type == "mni" {
-        output = mid_length / 1852.0;
+        output_raw = mid_length / 1852.0;
     } else if output_type == "mi" {
-        output = mid_length / 1609.344;
+        output_raw = mid_length / 1609.344;
     } else if output_type == "jd" {
-        output = mid_length / 0.9144;
+        output_raw = mid_length / 0.9144;
     } else if output_type == "ft" {
-        output = mid_length / 0.3048;
+        output_raw = mid_length / 0.3048;
     } else if output_type == "in" {
-        output = mid_length / 0.0254;
+        output_raw = mid_length / 0.0254;
     } else if output_type == "ld" {
-        output = mid_length / 384400000.0;
+        output_raw = mid_length / 384400000.0;
     } else if output_type == "au" {
-        output = mid_length / 149597870700.0;
+        output_raw = mid_length / 149597870700.0;
     } else if output_type == "ly" {
-        output = mid_length / 9460700000000000.0;
+        output_raw = mid_length / 9460700000000000.0;
     }
 
+    let output: f64 = crate::converts::round(output_raw, decimals);
+    
     output
 }
 
@@ -129,7 +131,16 @@ fn dialog() {
         None => return,
     };
 
-    let output = length_logic(input, input_type, output_type);
+    println!("Enter the decimal value:");
+    let mut decimal_str = String::new();
+    if io::stdin().read_line(&mut decimal_str).is_err() {
+        println!("Failed to read line");
+        return;
+    }
+
+    let decimal: i64 = decimal_str.trim().parse::<i64>().expect("Failed to parse string to i64");
+
+    let output = length_logic(input, input_type, output_type, decimal);
     println!("Output length: {}{}", output, output_type.to_ascii_lowercase());
     crate::converts::aftermenu(length);
 }

@@ -5,7 +5,7 @@ pub fn time() {
     dialog();
 }
 
-pub fn time_logic(input: f64, input_type: &str, output_type: &str) -> f64 {
+pub fn time_logic(input: f64, input_type: &str, output_type: &str, decimals: i64) -> f64 {
     let mut mid_time: f64 = 0.0; // Mid time is an intermediary variable to make conversion easier and it is based on minutes.
 
     if input_type == "y" {
@@ -28,27 +28,29 @@ pub fn time_logic(input: f64, input_type: &str, output_type: &str) -> f64 {
         mid_time = input / 60000000000000.0;
     }
 
-    let mut output: f64 = 0.0;
+    let mut output_raw: f64 = 0.0;
 
     if output_type == "y" {
-        output = mid_time / 525600.0;
+        output_raw = mid_time / 525600.0;
     } else if output_type == "wk" {
-        output = mid_time / 10080.0;
+        output_raw = mid_time / 10080.0;
     } else if output_type == "d" {
-        output = mid_time / 1440.0;
+        output_raw = mid_time / 1440.0;
     } else if output_type == "h" {
-        output = mid_time / 60.0;
+        output_raw = mid_time / 60.0;
     } else if output_type == "min" {
-        output = mid_time;
+        output_raw = mid_time;
     } else if output_type == "s" {
-        output = mid_time * 60.0;
+        output_raw = mid_time * 60.0;
     } else if output_type == "ms" {
-        output = mid_time * 60000.0;
+        output_raw = mid_time * 60000.0;
     } else if output_type == "μs" {
-        output = mid_time * 60000000.0;
+        output_raw = mid_time * 60000000.0;
     } else if output_type == "ps" {
-        output = mid_time * 60000000000000.0;
+        output_raw = mid_time * 60000000000000.0;
     }
+
+    let output: f64 = crate::converts::round(output_raw, decimals);
 
     output
 }
@@ -98,7 +100,16 @@ fn dialog() {
         None => return,
     };
 
-    let output = time_logic(input, input_type, output_type);
+    println!("Enter the decimal value:");
+    let mut decimal_str = String::new();
+    if io::stdin().read_line(&mut decimal_str).is_err() {
+        println!("Failed to read line");
+        return;
+    }
+
+    let decimal: i64 = decimal_str.trim().parse::<i64>().expect("Failed to parse string to i64");
+
+    let output = time_logic(input, input_type, output_type, decimal);
     println!("Output temperature: {}{}", output, output_type.to_ascii_lowercase());
     crate::converts::aftermenu(time);
 }
