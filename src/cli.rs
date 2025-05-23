@@ -1,6 +1,6 @@
 use std::{io};
 use regex::Regex;
-use crate::{convert_select, converts, main};
+use crate::{convert_select, converts};
 
 pub fn cli() {
     let mut input_str: String = String::new();
@@ -12,7 +12,7 @@ pub fn cli() {
     if parts.len() == 1 {
         match parts[0] {
             "face" => convert_select(),
-            "back" => main(),
+            "help" => help(),
             "exit" => std::process::exit(0),
             _ => eprintln!("Unknown command: {}", parts[0]),
         }
@@ -78,4 +78,25 @@ pub fn cli() {
         println!("{}{}", output, output_type.to_ascii_lowercase());
         cli();
     }
+}
+
+fn help() {
+    println!("CONVERTION TYPES");
+    println!("T - Temperature");
+    println!("l - Length");
+    println!("m - Money");
+    println!("w - Weight");
+    println!("t - Time");
+    println!("v - Volume");
+    println!("");
+    println!("INPUT FORMAT");
+    println!("<convert> <value><input_unit> <output_unit> <decimals>");
+    println!("");
+    println!("ADDITIONAL COMMANDS");
+    println!("face - Go to interface(Dialog option)");
+    println!("exit - Exits CLI");
+    println!("");
+    println!("For unit types check documentation or interface.");
+
+    cli();
 }
