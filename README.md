@@ -4,15 +4,56 @@ Uniter is a unit converter CLI tool.
 
 ![Alt](https://repobeats.axiom.co/api/embed/2ab893442b8a40960cd9bb66e91fdd1986356e69.svg "Repobeats analytics image")
 
-Available Types
-<ul>
-<li>Temperature(Celsius, Fahrenheit, Kelvin)</li>
-<li>Weight(Metric, Imperial)</li>
-<li>Lenght(Metric, Imperial, Space)</li>
-<li>Money(All currencies under FXRatesAPI, also you don't need any API keys)</li>
-<li>Time</li>
-<li>Volume(Metric, Imperial, Solid, Liquid)</li>
-</ul>
+
+
+<details>
+  <summary><h2>🧰 Commands</h2></summary>
+
+  Convertion Types
+  <ul>
+  <li>Temperature(Celsius, Fahrenheit, Kelvin)</li>
+  <li>Weight(Metric, Imperial)</li>
+  <li>Lenght(Metric, Imperial, Space)</li>
+  <li>Money(All currencies under FXRatesAPI, also you don't need any API keys)</li>
+  <li>Time</li>
+  <li>Volume(Metric, Imperial, Solid, Liquid)</li>
+  </ul>
+
+  Other commands
+  <ul>
+  <li>help
+  <li>exit
+  </ul>
+
+  ## Other info
+
+  Money maximum decimals is 15 due to the API.
+
+  In the decimal rounding it will return 0.0 only if the value is truly close to zero, not just small.
+
+  ## Example usage
+
+  Input: "convert_initial" "value""input_unit" "output_unit" "decimals"
+
+  Input:
+  ```
+  w 98kg sh.t 8
+  ```
+  Output:
+  ```
+  0.10802651sh.t
+  ```
+
+  Input:
+  ```
+  m 89eur jpy
+  ```
+  Output:
+  ```
+  14421.6021405JPY
+  ```
+
+</details>
 
 <details>
   <summary><h2>🚀 Running Uniter</h2></summary>
@@ -31,30 +72,6 @@ cargo run
 ```
 
 Make sure you have cargo installed and you're inside the directory in your terminal.
-
-## CLI usage
-
-Example: "convert_initial" "value""input_unit" "output_unit"
-
-Input:
-```
-w 98kg sh.t
-```
-Output:
-```
-0.10802650847059002sh.t 
-```
-
-Input:
-```
-m 89eur jpy
-```
-Output:
-```
-14508.59JPY
-```
-
-You also have back and exit options which are self-explanatory.
 </details>
 
 <details>
