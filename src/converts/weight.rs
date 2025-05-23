@@ -26,6 +26,9 @@ pub fn weight_logic(input: f64, input_type: &str, output_type: &str, decimals: i
         mid_weight = input * 453.59237;
     } else if input_type == "oz" {
         mid_weight = input * 28.349523125;
+    } else {
+        println!("Input type nonexistent.");
+        crate::cli();
     }
 
     let mut output_raw: f64 = 0.0;
@@ -48,6 +51,9 @@ pub fn weight_logic(input: f64, input_type: &str, output_type: &str, decimals: i
         output_raw = mid_weight / 453.59237
     } else if output_type == "oz" {
         output_raw = mid_weight / 28.349523125;
+    } else {
+        println!("Output type nonexistent.");
+        crate::cli();
     }
 
     let output: f64 = crate::converts::round(output_raw, decimals);

@@ -26,6 +26,9 @@ pub fn time_logic(input: f64, input_type: &str, output_type: &str, decimals: i64
         mid_time = input / 60000000.0;
     } else if input_type == "ps" {
         mid_time = input / 60000000000000.0;
+    } else {
+        println!("Input type nonexistent.");
+        crate::cli();
     }
 
     let mut output_raw: f64 = 0.0;
@@ -48,6 +51,9 @@ pub fn time_logic(input: f64, input_type: &str, output_type: &str, decimals: i64
         output_raw = mid_time * 60000000.0;
     } else if output_type == "ps" {
         output_raw = mid_time * 60000000000000.0;
+    } else {
+        println!("Output type nonexistent.");
+        crate::cli();
     }
 
     let output: f64 = crate::converts::round(output_raw, decimals);

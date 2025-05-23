@@ -38,6 +38,9 @@ pub fn volume_logic(input: f64, input_type: &str, output_type: &str, decimals: i
         mid_volume = input * 0.00378541;
     } else if input_type == "bbl" {
         mid_volume = input * 0.158987;
+    } else {
+        println!("Input type nonexistent.");
+        crate::cli();
     }
 
     let mut output_raw: f64 = 0.0;
@@ -72,6 +75,9 @@ pub fn volume_logic(input: f64, input_type: &str, output_type: &str, decimals: i
         output_raw = mid_volume / 0.00378541;
     } else if output_type == "bbl" {
         output_raw = mid_volume / 0.158987;
+    } else {
+        println!("Output type nonexistent.");
+        crate::cli();
     }
 
     let output: f64 = crate::converts::round(output_raw, decimals);

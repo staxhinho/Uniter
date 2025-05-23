@@ -39,6 +39,9 @@ pub fn length_logic(input: f64, input_type: &str, output_type: &str, decimals: i
         mid_length = input * 149597870700.0;
     } else if input_type == "ly" {
         mid_length = input * 9460700000000000.0;
+    } else {
+        println!("Input type nonexistent.");
+        crate::cli();
     }
 
     let mut output_raw: f64 = 0.0;
@@ -73,6 +76,9 @@ pub fn length_logic(input: f64, input_type: &str, output_type: &str, decimals: i
         output_raw = mid_length / 149597870700.0;
     } else if output_type == "ly" {
         output_raw = mid_length / 9460700000000000.0;
+    } else {
+        println!("Output type nonexistent.");
+        crate::cli();
     }
 
     let output: f64 = crate::converts::round(output_raw, decimals);

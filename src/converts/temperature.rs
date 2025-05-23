@@ -14,6 +14,9 @@ pub fn temperature_logic(input: f64, input_type: &str, output_type: &str, decima
         mid_temp = (input - 32.0) * 5.0 / 9.0;
     } else if input_type  == "k" {
         mid_temp = input - 273.15;
+    } else {
+        println!("Input type nonexistent.");
+        crate::cli();
     }
 
     let mut output_raw: f64 = 0.0;
@@ -24,6 +27,9 @@ pub fn temperature_logic(input: f64, input_type: &str, output_type: &str, decima
         output_raw = (mid_temp * 9.0 / 5.0) + 32.0;
     } else if output_type == "k" {
         output_raw = mid_temp + 273.15;
+    } else {
+        println!("Output type nonexistent.");
+        crate::cli();
     }
 
     let output: f64 = crate::converts::round(output_raw, decimals);

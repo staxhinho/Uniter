@@ -19,7 +19,7 @@ pub fn cli() {
     }
 
     if parts.len() != 4 {
-        eprintln!("Invalid input. Expected format: <convert> <value><input_unit> <output_unit>");
+        eprintln!("Invalid input. Expected format: <convert> <value><input_unit> <output_unit> <decimals>");
         return;
     } 
 
