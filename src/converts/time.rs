@@ -116,6 +116,6 @@ fn dialog() {
     let decimal: i64 = decimal_str.trim().parse::<i64>().expect("Failed to parse string to i64");
 
     let output = time_logic(input, input_type, output_type, decimal);
-    println!("Output temperature: {}{}", output, output_type.to_ascii_lowercase());
+    println!("Output time: {}{}", output, output_type.to_ascii_lowercase());
     crate::converts::aftermenu(time);
 }
