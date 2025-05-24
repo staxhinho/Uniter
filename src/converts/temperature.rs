@@ -5,7 +5,7 @@ pub fn temperature() {
     dialog();
 }
 
-pub fn temperature_logic(input: f64, input_type: &str, output_type: &str) -> f64 {
+pub fn temperature_logic(input: f64, input_type: &str, output_type: &str, decimals: i64) -> f64 {
     let mut mid_temp: f64 = 0.0; // Mid temp is an intermediary variable to make conversion easier and it is based on celsius.
 
     if input_type == "c" {
@@ -14,17 +14,25 @@ pub fn temperature_logic(input: f64, input_type: &str, output_type: &str) -> f64
         mid_temp = (input - 32.0) * 5.0 / 9.0;
     } else if input_type  == "k" {
         mid_temp = input - 273.15;
+    } else {
+        println!("Input type nonexistent.");
+        crate::cli();
     }
 
-    let mut output: f64 = 0.0;
+    let mut output_raw: f64 = 0.0;
 
     if output_type == "c" {
-        output = mid_temp;
+        output_raw = mid_temp;
     } else if output_type == "f" {
-        output = (mid_temp * 9.0 / 5.0) + 32.0;
+        output_raw = (mid_temp * 9.0 / 5.0) + 32.0;
     } else if output_type == "k" {
-        output = mid_temp + 273.15;
+        output_raw = mid_temp + 273.15;
+    } else {
+        println!("Output type nonexistent.");
+        crate::cli();
     }
+
+    let output: f64 = crate::converts::round(output_raw, decimals);
 
     output
 }
@@ -68,7 +76,16 @@ fn dialog() {
         None => return,
     };
 
-    let output = temperature_logic(input, input_type, output_type);
+    println!("Enter the decimal value:");
+    let mut decimal_str = String::new();
+    if io::stdin().read_line(&mut decimal_str).is_err() {
+        println!("Failed to read line");
+        return;
+    }
+
+    let decimal: i64 = decimal_str.trim().parse::<i64>().expect("Failed to parse string to i64");
+
+    let output = temperature_logic(input, input_type, output_type, decimal);
     println!("Output temperature: {}°{}", output, output_type.to_ascii_uppercase());
     crate::converts::aftermenu(temperature);
 }

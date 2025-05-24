@@ -5,7 +5,7 @@ pub fn weight() {
     dialog();
 }
 
-pub fn weight_logic(input: f64, input_type: &str, output_type: &str) -> f64 {
+pub fn weight_logic(input: f64, input_type: &str, output_type: &str, decimals: i64) -> f64 {
     let mut mid_weight: f64 = 0.0; // Mid weight is an intermediary variable to make conversion easier and it is based on the gram.
 
     if input_type == "t" {
@@ -26,29 +26,37 @@ pub fn weight_logic(input: f64, input_type: &str, output_type: &str) -> f64 {
         mid_weight = input * 453.59237;
     } else if input_type == "oz" {
         mid_weight = input * 28.349523125;
+    } else {
+        println!("Input type nonexistent.");
+        crate::cli();
     }
 
-    let mut output: f64 = 0.0;
+    let mut output_raw: f64 = 0.0;
 
     if output_type == "t" {
-        output = mid_weight / 1000000.0;
+        output_raw = mid_weight / 1000000.0;
     } else if output_type == "kg" {
-        output = mid_weight / 1000.0;
+        output_raw = mid_weight / 1000.0;
     } else if output_type == "g" {
-        output = mid_weight;
+        output_raw = mid_weight;
     } else if output_type == "mg" {
-        output = mid_weight * 1000.0
+        output_raw = mid_weight * 1000.0
     } else if output_type == "μg" {
-        output = mid_weight * 1000000.0;
+        output_raw = mid_weight * 1000000.0;
     } else if output_type == "l.t" {
-        output = mid_weight / 1016046.9088;
+        output_raw = mid_weight / 1016046.9088;
     } else if output_type == "sh.t" {
-        output = mid_weight / 907184.74;
+        output_raw = mid_weight / 907184.74;
     } else if output_type == "lb" {
-        output = mid_weight / 453.59237
+        output_raw = mid_weight / 453.59237
     } else if output_type == "oz" {
-        output = mid_weight / 28.349523125;
+        output_raw = mid_weight / 28.349523125;
+    } else {
+        println!("Output type nonexistent.");
+        crate::cli();
     }
+
+    let output: f64 = crate::converts::round(output_raw, decimals);
 
     output
 }
@@ -98,7 +106,16 @@ fn dialog() {
         None => return,
     };
 
-    let output = weight_logic(input, input_type, output_type);
+    println!("Enter the decimal value:");
+    let mut decimal_str = String::new();
+    if io::stdin().read_line(&mut decimal_str).is_err() {
+        println!("Failed to read line");
+        return;
+    }
+
+    let decimal: i64 = decimal_str.trim().parse::<i64>().expect("Failed to parse string to i64");
+
+    let output = weight_logic(input, input_type, output_type, decimal);
     println!("Output weight: {}{}", output, output_type.to_ascii_lowercase());
     crate::converts::aftermenu(weight);
 }
