@@ -21,6 +21,7 @@ Uniter is a unit converter CLI tool.
 
   Other commands
   <ul>
+  <li>face - Enters interface/dialog option.
   <li>help
   <li>exit
   </ul>
